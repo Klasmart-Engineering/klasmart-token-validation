@@ -3,7 +3,7 @@ import { verify, decode, VerifyOptions, Secret, JwtPayload } from 'jsonwebtoken'
 export interface KidsloopAuthenticationToken {
   id?: string,
   email: string,
-  
+
   // Standard JWT properties
   iat?: number
   exp: number,
@@ -21,7 +21,7 @@ const issuers = new Map<string, Issuer>([
     {
       options: {
         issuer: 'kidsloop',
-        algorithms: ['RS256','RS384','RS512'],
+        algorithms: ['RS256', 'RS384', 'RS512']
       },
       secretOrPublicKey: `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxdHMYTqFobj3oGD/JDYb
@@ -31,30 +31,30 @@ krUew7/+sGW6rjV2lQqxBN3sQsfaDOdN5IGkizsfMpdrETbc5tKksNs6nL6SFRDe
 LoS4AH5KI4T0/HC53iLDjgBoka7tJuu3YsOBzxDX22FbYfTFV7MmPyq++8ANbzTL
 sgaD2lwWhfWO51cWJnFIPc7gHBq9kMqMK3T2dw0jCHpA4vYEMjsErNSWKjaxF8O/
 FwIDAQAB
------END PUBLIC KEY-----`,
-    },
-  ],
+-----END PUBLIC KEY-----`
+    }
+  ]
 ])
 
-if(process.env.NODE_ENV !== 'production') {
-    console.log("WARNING: NODE_ENV is not set to 'production'")
-    const issuer = 'calmid-debug'
-    const secretOrPublicKey = process.env.DEV_JWT_SECRET || 'iXtZx1D5AqEB0B9pfn+hRQ=='
-    console.log(`Accepting JWTs issued by '${issuer}', signed with symetric secret '${secretOrPublicKey}'`)
+if (process.env.NODE_ENV !== 'production') {
+  console.log("WARNING: NODE_ENV is not set to 'production'")
+  const issuer = 'calmid-debug'
+  const secretOrPublicKey = process.env.DEV_JWT_SECRET || 'iXtZx1D5AqEB0B9pfn+hRQ=='
+  console.log(`Accepting JWTs issued by '${issuer}', signed with symetric secret '${secretOrPublicKey}'`)
 
-    issuers.set(
+  issuers.set(
+    issuer,
+    {
+      options: {
         issuer,
-        {
-            options: {
-              issuer,
-              algorithms: ['HS512', 'HS384', 'HS256'],
-            },
-            secretOrPublicKey,
-        },
-    )
+        algorithms: ['HS512', 'HS384', 'HS256']
+      },
+      secretOrPublicKey
+    }
+  )
 }
 
-export async function checkToken(token?: string): Promise<KidsloopAuthenticationToken | undefined> {
+export async function checkToken (token?: string): Promise<KidsloopAuthenticationToken | undefined> {
   if (!token) {
     return
   }
@@ -62,7 +62,7 @@ export async function checkToken(token?: string): Promise<KidsloopAuthentication
   if (!payload || typeof payload === 'string') {
     return
   }
-  const issuer = payload['iss']
+  const issuer = payload.iss
   if (!issuer || typeof issuer !== 'string') {
     return
   }
@@ -86,38 +86,37 @@ export async function checkToken(token?: string): Promise<KidsloopAuthentication
   return verifiedToken
 }
 
-function checkTypes(token: JwtPayload): KidsloopAuthenticationToken {
-    const id = token.id
-    if(!(typeof id === "string" || typeof id === "undefined")) {
-        throw new Error(`Malformed token: id must be a string or undefined but was '${typeof id}'`)
-    }
+function checkTypes (token: JwtPayload): KidsloopAuthenticationToken {
+  const id = token.id
+  if (!(typeof id === 'string' || typeof id === 'undefined')) {
+    throw new Error(`Malformed token: id must be a string or undefined but was '${typeof id}'`)
+  }
 
-    const email = token.email
-    if(typeof email !== "string") {
-        throw new Error(`Malformed token: email must be be a string but was '${typeof email}'`)
-    }
+  const email = token.email
+  if (typeof email !== 'string') {
+    throw new Error(`Malformed token: email must be be a string but was '${typeof email}'`)
+  }
 
-    const iat = token.iat
-    if(!(typeof iat === "number" || typeof iat === "undefined")) {
-        throw new Error(`Malformed token: iat must be be a number or undefined but was '${typeof iat}'`)
-    }
+  const iat = token.iat
+  if (!(typeof iat === 'number' || typeof iat === 'undefined')) {
+    throw new Error(`Malformed token: iat must be be a number or undefined but was '${typeof iat}'`)
+  }
 
-    const exp = token.exp
-    if(typeof exp !== "number") {
-        throw new Error(`Malformed token: exp must be be a number but was '${typeof exp}'`)
-    }
+  const exp = token.exp
+  if (typeof exp !== 'number') {
+    throw new Error(`Malformed token: exp must be be a number but was '${typeof exp}'`)
+  }
 
-    const iss = token.iss
-    if(typeof iss !== "string") {
-        throw new Error(`Malformed token: iss must be be a string but was '${typeof iss}'`)
-    }
+  const iss = token.iss
+  if (typeof iss !== 'string') {
+    throw new Error(`Malformed token: iss must be be a string but was '${typeof iss}'`)
+  }
 
-
-    return {
-        id,
-        email,
-        exp,
-        iss,
-        iat,
-    }
-} 
+  return {
+    id,
+    email,
+    exp,
+    iss,
+    iat
+  }
+}

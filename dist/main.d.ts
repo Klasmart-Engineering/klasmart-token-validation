@@ -5,4 +5,4 @@ export interface KidsloopAuthenticationToken {
     exp: number;
     iss: string;
 }
-export declare function checkToken(token?: string): Promise<KidsloopAuthenticationToken | undefined>;
+export declare function checkToken(token?: string): Promise<KidsloopAuthenticationToken>;

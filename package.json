@@ -1,11 +1,11 @@
 {
   "name": "kidsloop-token-validation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/main.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/main.d.ts",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack; tsc --emitDeclarationOnly"
   },
   "author": "",
   "license": "ISC",

@@ -54,21 +54,21 @@ if (process.env.NODE_ENV !== 'production') {
   )
 }
 
-export async function checkToken (token?: string): Promise<KidsloopAuthenticationToken | undefined> {
+export async function checkToken (token?: string): Promise<KidsloopAuthenticationToken> {
   if (!token) {
-    return
+    throw new Error('No token provided')
   }
   const payload = decode(token)
   if (!payload || typeof payload === 'string') {
-    return
+    throw new Error('Invalid token type')
   }
   const issuer = payload.iss
   if (!issuer || typeof issuer !== 'string') {
-    return
+    throw new Error('Token must specify issuer')
   }
   const issuerOptions = issuers.get(issuer)
   if (!issuerOptions) {
-    return
+    throw new Error('Token has unknown issuer')
   }
   const { options, secretOrPublicKey } = issuerOptions
   const verifiedToken = await new Promise<KidsloopAuthenticationToken>((resolve, reject) => {

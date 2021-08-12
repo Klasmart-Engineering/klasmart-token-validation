@@ -29,5 +29,8 @@ module.exports = {
       '.tsx'
     ]
   },
+  optimization: {
+    nodeEnv: false
+  },
   plugins: []
 }

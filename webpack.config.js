@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   mode: 'production',
   target: 'node',
-  entry: ['regenerator-runtime/runtime','./src/main.ts'],
+  entry: ['regenerator-runtime/runtime', './src/main.ts', './src/handler.ts'],
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),

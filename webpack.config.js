@@ -3,9 +3,9 @@ const path = require('path')
 module.exports = {
   mode: 'production',
   target: 'node',
-  entry: ['regenerator-runtime/runtime', './src/main.ts', './src/handler.ts'],
+  entry: ['regenerator-runtime/runtime', './src/index.ts'],
   output: {
-    filename: '[name].js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd',
     library: 'kidsloop-token-validation'

@@ -52,3 +52,4 @@ interface KidsloopAuthMiddlewareConfig {
 */
 export declare function kidsloopAuthMiddleware(config?: KidsloopAuthMiddlewareConfig): (request: Request, response: Response, next: NextFunction) => Promise<void>;
 export {};
+//# sourceMappingURL=handler.d.ts.map

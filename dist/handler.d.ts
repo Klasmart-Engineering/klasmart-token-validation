@@ -1,15 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import { KidsloopAuthenticationToken } from './main';
-interface RFC5424Logger {
-    debug: (message: string) => void;
-    warning: (message: string) => void;
+export interface RFC5424LoggerPartial {
+    debug: (message: string, ...params: any[]) => void;
+    warning: (message: string, ...params: any[]) => void;
     silly?: never;
     warn?: never;
 }
-interface NPMLoggerPartial {
-    silly: (message: string) => void;
-    warn: (message: string) => void;
-    warning?: never;
+export interface NPMLoggerPartial {
+    silly: (message: string, ...params: any[]) => void;
+    warn: (message: string, ...params: any[]) => void;
 }
 /**
 * Configuration options for Authentication Middleware
@@ -18,12 +17,12 @@ interface KidsloopAuthMiddlewareConfig {
     /**
     * Compatible NPM or RFC5424 logger. If supplied will log messages related to validation status in default handlers.
     */
-    logger?: RFC5424Logger | NPMLoggerPartial;
+    logger?: RFC5424LoggerPartial | NPMLoggerPartial;
     /**
     * Optional override for middleware initialization handler. This can be used to hook behavior into the registration process.
     * By default this only writes a warn message when development environment variables are defined.
     */
-    initializationHandler: () => void;
+    initializationHandler?: () => void;
     /**
     * Optional override for middleware handling when no access cookie is present in the request.
     */
@@ -32,7 +31,7 @@ interface KidsloopAuthMiddlewareConfig {
     * Optional override for middleware token validation error handling. This middleware will be called when an access cookie is present but
     * it fails to validate.
     */
-    tokenErrorHandler: (err: Error, request: Request, response: Response, next: NextFunction) => void;
+    tokenErrorHandler?: (err: Error, request: Request, response: Response, next: NextFunction) => void;
     /**
     * Optional override for middleware token registration handling. This middleware is called following successful validation of an access token.
     */

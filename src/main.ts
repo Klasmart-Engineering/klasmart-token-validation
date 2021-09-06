@@ -2,8 +2,8 @@ import { verify, decode, VerifyOptions, Secret, JwtPayload } from 'jsonwebtoken'
 
 export interface KidsloopAuthenticationToken {
   id?: string,
-  email: string,
-
+  email?: string,
+  phone?: string,
   // Standard JWT properties
   iat?: number
   exp: number,
@@ -93,23 +93,28 @@ function checkTypes (token: JwtPayload): KidsloopAuthenticationToken {
   }
 
   const email = token.email
-  if (typeof email !== 'string') {
-    throw new Error(`Malformed token: email must be be a string but was '${typeof email}'`)
+  if(!(typeof email === 'string' || typeof email === 'undefined')){
+    throw new Error(`Malformed token: email must be a string or undefined but was '${typeof email}'`);
+  }
+  
+  const phone = token.phone
+  if (!(typeof phone === 'string' || typeof phone === 'undefined')) {
+    throw new Error(`Malformed token: phone must be a string or undefined but was '${typeof phone}'`)
   }
 
   const iat = token.iat
   if (!(typeof iat === 'number' || typeof iat === 'undefined')) {
-    throw new Error(`Malformed token: iat must be be a number or undefined but was '${typeof iat}'`)
+    throw new Error(`Malformed token: iat must be a number or undefined but was '${typeof iat}'`)
   }
 
   const exp = token.exp
   if (typeof exp !== 'number') {
-    throw new Error(`Malformed token: exp must be be a number but was '${typeof exp}'`)
+    throw new Error(`Malformed token: exp must be a number but was '${typeof exp}'`)
   }
 
   const iss = token.iss
   if (typeof iss !== 'string') {
-    throw new Error(`Malformed token: iss must be be a string but was '${typeof iss}'`)
+    throw new Error(`Malformed token: iss must be a string but was '${typeof iss}'`)
   }
 
   return {

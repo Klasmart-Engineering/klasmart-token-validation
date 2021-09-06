@@ -120,6 +120,7 @@ function checkTypes (token: JwtPayload): KidsloopAuthenticationToken {
   return {
     id,
     email,
+    phone,
     exp,
     iss,
     iat

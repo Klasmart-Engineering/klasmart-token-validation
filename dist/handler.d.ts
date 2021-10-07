@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { KidsloopAuthenticationToken } from './main';
+import { KidsloopAuthenticationToken } from './authentication';
 export interface RFC5424LoggerPartial {
     debug: (message: string, ...params: any[]) => void;
     warning: (message: string, ...params: any[]) => void;

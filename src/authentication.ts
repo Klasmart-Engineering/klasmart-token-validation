@@ -54,7 +54,7 @@ if (process.env.NODE_ENV !== 'production') {
   )
 }
 
-export async function checkToken (token?: string): Promise<KidsloopAuthenticationToken> {
+export async function checkAuthenticationToken (token?: string): Promise<KidsloopAuthenticationToken> {
   if (!token) {
     throw new Error('No token provided')
   }

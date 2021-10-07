@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { checkToken, KidsloopAuthenticationToken } from './main'
+import { checkAuthenticationToken, KidsloopAuthenticationToken } from './authentication'
 
 export interface RFC5424LoggerPartial {
   debug: (message: string, ...params: any[]) => void;
@@ -118,7 +118,7 @@ export function kidsloopAuthMiddleware (config?: KidsloopAuthMiddlewareConfig): 
     }
 
     try {
-      const authenticationDetails: KidsloopAuthenticationToken = await checkToken(token)
+      const authenticationDetails: KidsloopAuthenticationToken = await checkAuthenticationToken(token)
       ;(config?.tokenRegistrationHandler || defaultTokenRegistrationHandler)(request, response, next, authenticationDetails)
     } catch (err: any) {
       ;(config?.tokenErrorHandler || defaultTokenErrorHandler)(err, request, response, next)

@@ -6,5 +6,5 @@ export interface KidsloopAuthenticationToken {
     exp: number;
     iss: string;
 }
-export declare function checkToken(token?: string): Promise<KidsloopAuthenticationToken>;
-//# sourceMappingURL=main.d.ts.map
+export declare function checkAuthenticationToken(token?: string): Promise<KidsloopAuthenticationToken>;
+//# sourceMappingURL=authentication.d.ts.map

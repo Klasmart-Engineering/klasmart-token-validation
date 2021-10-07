@@ -120,7 +120,7 @@ export function kidsloopAuthMiddleware (config?: KidsloopAuthMiddlewareConfig): 
     try {
       const authenticationDetails: KidsloopAuthenticationToken = await checkToken(token)
       ;(config?.tokenRegistrationHandler || defaultTokenRegistrationHandler)(request, response, next, authenticationDetails)
-    } catch (err) {
+    } catch (err: any) {
       ;(config?.tokenErrorHandler || defaultTokenErrorHandler)(err, request, response, next)
     }
   }

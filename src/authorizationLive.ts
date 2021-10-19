@@ -99,6 +99,14 @@ export type KidsloopLiveAuthorizationToken = {
     materials?: unknown,
 }
 
+export async function checkLiveAuthorizationTokenAndUserId (token?: string, userId?: string) {
+  const verifiedToken = await checkLiveAuthorizationToken(token)
+  if (verifiedToken.userid !== userId) {
+    throw new Error(`Authorization does not match userID(${userId})`)
+  }
+  return verifiedToken
+}
+
 export async function checkLiveAuthorizationToken (token?: string) {
   try {
     if (!token) {

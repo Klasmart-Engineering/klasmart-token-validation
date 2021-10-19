@@ -10,5 +10,6 @@ export declare type KidsloopLiveAuthorizationToken = {
     teacher?: boolean;
     materials?: unknown;
 };
+export declare function checkLiveAuthorizationTokenAndUserId(token?: string, userId?: string): Promise<KidsloopLiveAuthorizationToken>;
 export declare function checkLiveAuthorizationToken(token?: string): Promise<KidsloopLiveAuthorizationToken>;
 //# sourceMappingURL=authorizationLive.d.ts.map

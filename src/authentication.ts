@@ -93,10 +93,10 @@ function checkTypes (token: JwtPayload): KidsloopAuthenticationToken {
   }
 
   const email = token.email
-  if(!(typeof email === 'string' || typeof email === 'undefined')){
-    throw new Error(`Malformed token: email must be a string or undefined but was '${typeof email}'`);
+  if (!(typeof email === 'string' || typeof email === 'undefined')) {
+    throw new Error(`Malformed token: email must be a string or undefined but was '${typeof email}'`)
   }
-  
+
   const phone = token.phone
   if (!(typeof phone === 'string' || typeof phone === 'undefined')) {
     throw new Error(`Malformed token: phone must be a string or undefined but was '${typeof phone}'`)

@@ -6,7 +6,7 @@ export declare type KidsloopLiveAuthorizationToken = {
     sub: string;
     roomid: string;
     userid: string;
-    atartat: number;
+    startat: number;
     endat: number;
     name?: string;
     teacher?: boolean;

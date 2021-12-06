@@ -94,7 +94,7 @@ export type KidsloopLiveAuthorizationToken = {
     sub: string,
     roomid: string,
     userid: string,
-    atartat: number,
+    startat: number,
     endat: number,
     name?: string,
     teacher?: boolean,
@@ -136,6 +136,8 @@ export async function checkLiveAuthorizationToken (token?: string) {
       })
     })
     verifiedToken.userid = verifiedToken.userid || (verifiedToken as any).user_id
+    verifiedToken.startat = verifiedToken.startat || (verifiedToken as any).start_at
+    verifiedToken.endat = verifiedToken.endat || (verifiedToken as any).end_at
     return verifiedToken
   } catch (e) {
     console.error(e)

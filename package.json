@@ -37,5 +37,13 @@
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
     "regenerator-runtime": "^0.13.7"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

@@ -14,6 +14,7 @@ export declare type KidsloopLiveAuthorizationToken = {
     classtype?: string;
     schedule_id?: string;
     org_id?: string;
+    is_review?: boolean;
 };
 export declare function checkLiveAuthorizationTokenAndUserId(token?: string, userId?: string): Promise<KidsloopLiveAuthorizationToken>;
 export declare function checkLiveAuthorizationToken(token?: string): Promise<KidsloopLiveAuthorizationToken>;

@@ -101,7 +101,8 @@ export type KidsloopLiveAuthorizationToken = {
     materials?: unknown,
     classtype?: string,
     schedule_id?: string,
-    org_id?: string
+    org_id?: string,
+    is_review?: boolean
 }
 
 export async function checkLiveAuthorizationTokenAndUserId (token?: string, userId?: string) {

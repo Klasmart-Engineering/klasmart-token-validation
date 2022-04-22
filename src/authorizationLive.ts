@@ -114,36 +114,31 @@ export async function checkLiveAuthorizationTokenAndUserId (token?: string, user
 }
 
 export async function checkLiveAuthorizationToken (token?: string) {
-  try {
-    if (!token) {
-      throw new Error('Missing JWT token')
-    }
-    const payload = decode(token)
-    if (!payload || typeof payload !== 'object') {
-      throw new Error('JWT Payload is incorrect')
-    }
-    const issuer = payload.iss
-    if (!issuer || typeof issuer !== 'string') {
-      throw new Error('JWT Issuer is incorrect')
-    }
-    const issuerOptions = issuers.get(issuer)
-    if (!issuerOptions) {
-      throw new Error('JWT IssuerOptions are incorrect')
-    }
-    const { options, secretOrPublicKey } = issuerOptions
-    const verifiedToken = await new Promise<KidsloopLiveAuthorizationToken>((resolve, reject) => {
-      verify(token, secretOrPublicKey, options, (err, decoded) => {
-        if (err) { reject(err); return }
-        if (decoded) { resolve(<KidsloopLiveAuthorizationToken>decoded); return }
-        reject(new Error('Unexpected authorization error'))
-      })
-    })
-    verifiedToken.userid = verifiedToken.userid || (verifiedToken as any).user_id
-    verifiedToken.startat = verifiedToken.startat || (verifiedToken as any).start_at
-    verifiedToken.endat = verifiedToken.endat || (verifiedToken as any).end_at
-    return verifiedToken
-  } catch (e) {
-    console.error(e)
-    throw e
+  if (!token) {
+    throw new Error('Missing JWT token')
   }
+  const payload = decode(token)
+  if (!payload || typeof payload !== 'object') {
+    throw new Error('JWT Payload is incorrect')
+  }
+  const issuer = payload.iss
+  if (!issuer || typeof issuer !== 'string') {
+    throw new Error('JWT Issuer is incorrect')
+  }
+  const issuerOptions = issuers.get(issuer)
+  if (!issuerOptions) {
+    throw new Error('JWT IssuerOptions are incorrect')
+  }
+  const { options, secretOrPublicKey } = issuerOptions
+  const verifiedToken = await new Promise<KidsloopLiveAuthorizationToken>((resolve, reject) => {
+    verify(token, secretOrPublicKey, options, (err, decoded) => {
+      if (err) { reject(err); return }
+      if (decoded) { resolve(<KidsloopLiveAuthorizationToken>decoded); return }
+      reject(new Error('Unexpected authorization error'))
+    })
+  })
+  verifiedToken.userid = verifiedToken.userid || (verifiedToken as any).user_id
+  verifiedToken.startat = verifiedToken.startat || (verifiedToken as any).start_at
+  verifiedToken.endat = verifiedToken.endat || (verifiedToken as any).end_at
+  return verifiedToken
 }

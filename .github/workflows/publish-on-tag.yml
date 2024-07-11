@@ -27,6 +27,9 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: |
+          npm login --registry=https://npm.pkg.github.com --scope=@OWNER --always-auth=false <<EOF
+          ${{ secrets.NPM_TOKEN }}
+          EOF
           echo "//npm.pkg.github.com/:_authToken=\${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
           npm publish --registry=https://npm.pkg.github.com/
         env:

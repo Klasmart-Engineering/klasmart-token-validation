@@ -1,0 +1,33 @@
+name: Publish Package on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'  # Mencocokkan tag yang diawali dengan 'v' (misalnya v1.0.0, v2.1.0)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Tambahkan langkah-langkah sesuai dengan jenis package yang Anda kelola
+      # Contoh untuk npm package
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build package
+        run: npm run build  # Sesuaikan dengan perintah build Anda jika diperlukan
+
+      - name: Publish to GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=\${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+          npm publish --registry=https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

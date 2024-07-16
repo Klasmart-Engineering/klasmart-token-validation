@@ -2,14 +2,11 @@ name: Publish Package on Tag
 
 on:
   push:
-    branches:
-      - klasmart-id  # Only runs on the klasmart-id branch
     tags:
       - 'v*'  # Matches tags starting with 'v' (e.g., v1.0.0, v2.1.0)
 
 jobs:
   publish:
-    if: github.ref == 'refs/heads/klasmart-id'  # Ensure the branch is klasmart-id
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

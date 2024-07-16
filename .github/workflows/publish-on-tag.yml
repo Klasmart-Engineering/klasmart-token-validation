@@ -3,7 +3,7 @@ name: Publish Package on Tag
 on:
   push:
     tags:
-      - 'v*'  # Matches tags starting with 'v' (e.g., v1.0.0, v2.1.0)
+      - 'v*'
 
 jobs:
   publish:
@@ -12,8 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Add steps based on the type of package you are managing
-      # Example for npm package
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -23,7 +21,16 @@ jobs:
         run: npm install
 
       - name: Build package
-        run: npm run build  # Adjust based on your build command if needed
+        run: npm run build
+
+      - name: List package files
+        run: ls -la
+
+      - name: Print package.json
+        run: cat package.json
+
+      - name: Verify npm registry config
+        run: cat ~/.npmrc
 
       - name: Publish to GitHub Packages
         env:

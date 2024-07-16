@@ -9,7 +9,6 @@ on:
 
 jobs:
   publish:
-    if: github.ref == 'refs/heads/klasmart-id'  # Ensure the branch is klasmart-id
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

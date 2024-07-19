@@ -1,5 +1,5 @@
 {
-  "name": "@klasmart-engineering/kidsloop-token-validation",
+  "name": "@klasmart-engineering/klasmart-token-validation",
   "version": "1.7.0",
   "description": "",
   "main": "./dist/index.js",
